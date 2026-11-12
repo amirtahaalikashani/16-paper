@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>۱۶ کاغذ</title>
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;min-height:100%}
+body{font-family:Vazirmatn,Tahoma,"Segoe UI",sans-serif;color:#3b2a1a;overflow-x:hidden;user-select:none;
+  background:repeating-linear-gradient(92deg,transparent 0 14px,rgba(70,35,12,.22) 16px,transparent 21px,rgba(255,220,160,.12) 30px,transparent 46px,rgba(70,35,12,.14) 60px,transparent 64px),
+    repeating-linear-gradient(0deg,transparent 0 120px,rgba(60,30,10,.35) 121px,transparent 123px),
+    linear-gradient(180deg,#b57a45,#94602f 55%,#6e4220) fixed}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.22;
+  background:repeating-linear-gradient(88deg,rgba(60,30,10,.35) 0 1px,transparent 1px 7px,rgba(255,220,160,.2) 7px 8px,transparent 8px 19px)}
+#app{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;gap:10px;
+  padding:max(14px,env(safe-area-inset-top)) 14px max(14px,env(safe-area-inset-bottom))}
+h1{margin:6px 0 0;font-size:clamp(28px,7vw,40px);color:#fff4df;text-shadow:0 2px 0 #4a2d14,0 6px 14px rgba(0,0,0,.45)}
+h2{margin:4px 0 12px;font-size:22px}
+h3{font-size:17px;margin:14px 0 6px}
+.sub{color:#fbe9c9;margin:0 0 6px}
+.card{width:100%;max-width:560px;padding:20px;border-radius:20px;text-align:center;
+  background:linear-gradient(170deg,#fffaf0,#f3e6c8);box-shadow:0 14px 34px rgba(0,0,0,.4),inset 0 0 0 1px rgba(255,255,255,.6)}
+.card p{line-height:1.9;margin:8px 0}
+.menu button{display:block;width:100%;margin:9px 0}
+button{font:inherit;font-weight:700;min-height:46px;padding:10px 16px;border:0;border-radius:14px;cursor:pointer;color:#3b2a1a;
+  background:linear-gradient(#fbeecf,#dcb774);box-shadow:0 4px 0 #8c6532,0 8px 14px rgba(0,0,0,.28);transition:transform .08s,box-shadow .08s}
+button:active{transform:translateY(3px);box-shadow:0 1px 0 #8c6532,0 3px 6px rgba(0,0,0,.25)}
+button.primary{background:linear-gradient(#ffe08a,#e7a335)}
+button.on{outline:2px solid #5a3a1d;background:linear-gradient(#ffd27a,#f0a94a)}
+button:disabled{opacity:.45;cursor:not-allowed;transform:none}
+.ctl{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:12px 0 4px}
+.ctl button{flex:1 1 auto}
+.bar{display:flex;gap:10px;width:100%;max-width:560px}
+.pl{flex:1;padding:10px;border-radius:999px;text-align:center;background:rgba(255,255,255,.14);color:#fbe9c9;font-weight:700;transition:all .3s}
+.pl.on{background:#ffe08a;color:#3b2a1a;transform:scale(1.04);box-shadow:0 0 0 3px rgba(255,224,138,.35),0 4px 12px rgba(0,0,0,.3)}
+.status{color:#fff4df;font-size:15px;min-height:22px;text-shadow:0 1px 2px #000}
+.hint{min-height:24px;color:#fff4df;text-align:center;font-size:15px;margin-top:4px;text-shadow:0 1px 2px #000}
+.table{width:100%;max-width:560px;display:flex;flex-direction:column;align-items:center;gap:clamp(8px,2.4vh,16px);padding:14px 8px;border-radius:20px;
+  background:repeating-linear-gradient(0deg,rgba(60,30,10,.16) 0 2px,transparent 2px 38px),linear-gradient(180deg,#b98350,#8f5d31);
+  box-shadow:inset 0 3px 12px rgba(0,0,0,.35),0 12px 26px rgba(0,0,0,.35)}
+.row{direction:ltr;display:flex;justify-content:center;align-items:flex-end;gap:clamp(3px,1.4vw,8px);min-height:clamp(54px,15vw,84px);
+  padding:8px 10px;border-radius:14px;cursor:pointer;outline:2px dashed transparent;transition:background .2s,outline-color .2s}
+.row.sel{background:rgba(255,226,140,.18);outline-color:rgba(255,226,140,.8)}
+.empty{color:#fbe9c9;font-size:14px;align-self:center;opacity:.7}
+.paper{position:relative;width:clamp(30px,10vw,60px);height:clamp(44px,14.5vw,84px);
+  filter:drop-shadow(0 3px 2px rgba(40,20,5,.45)) drop-shadow(0 8px 10px rgba(0,0,0,.25));
+  transition:transform .28s cubic-bezier(.2,.8,.3,1),opacity .35s,filter .25s}
+.sheet{position:absolute;inset:0;overflow:hidden;background:linear-gradient(162deg,#fffdf6 0%,#f7f0de 45%,#ebdfbf 100%)}
+.sheet::before{content:"";position:absolute;inset:0;background:
+  repeating-linear-gradient(180deg,transparent 0 9px,rgba(90,60,30,.18) 9px 10px,transparent 10px 15px),
+  repeating-linear-gradient(-13deg,rgba(120,90,40,.08) 0 1px,transparent 1px 4px),
+  radial-gradient(ellipse at 30% 40%,rgba(170,130,70,.14),transparent 60%),
+  radial-gradient(circle at 20% 80%,rgba(120,90,40,.16) 0 1px,transparent 2px),
+  radial-gradient(circle at 70% 30%,rgba(255,255,255,.85) 0 1px,transparent 3px),
+  linear-gradient(135deg,transparent 88%,rgba(120,90,50,.25) 92%,transparent 100%)}
+.sheet::after{content:"";position:absolute;left:0;right:0;top:0;height:35%;background:linear-gradient(rgba(255,255,255,.55),transparent)}
+.paper{transform:rotate(var(--r,0deg))}
+.paper:hover{transform:rotate(var(--r,0deg)) translateY(-2px)}
+.paper.hl{transform:rotate(var(--r,0deg)) translateY(-10px)}
+.paper.hl .sheet{background:linear-gradient(162deg,#fff8d8,#f2d27a)}
+.paper.gone{opacity:0;transform:rotate(var(--r,0deg)) translateY(-40px) scale(.85)}
+.n{position:absolute;left:0;right:0;bottom:4px;text-align:center;font-size:13px;font-weight:700;color:#5a3a1d;z-index:1}
+.overlay{position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(25,12,3,.65);animation:fade .3s ease}
+.trophy{font-size:56px;animation:pop .6s cubic-bezier(.2,1.6,.4,1)}
+@keyframes fade{from{opacity:0}}
+@keyframes pop{from{transform:scale(.3);opacity:0}}
+input,textarea{font:inherit;width:100%;padding:10px;border-radius:12px;border:1px solid #c9a86a;background:#fffdf7;margin:6px 0 12px}
+label{display:block;text-align:right;font-weight:700}
+.set{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:14px 0;font-weight:600}
+.avatar{width:110px;height:110px;margin:0 auto 10px;border-radius:50%;background:#e9dcc0;display:flex;align-items:center;justify-content:center;overflow:hidden;box-shadow:inset 0 2px 6px rgba(0,0,0,.2)}
+.avatar img{width:100%;height:100%;object-fit:cover}
+.note{font-size:13px;color:#6b5030}
+pre{direction:ltr;text-align:left;white-space:pre-wrap;font-size:13px;background:#f3e8cf;padding:10px;border-radius:10px;max-height:50vh;overflow:auto}
+.big{font-size:clamp(38px,12vw,80px);font-weight:900;line-height:1.35;padding:6px 0;
+  background:linear-gradient(90deg,#ff5e7e,#ffd23f,#41e0a0,#4fa3ff,#c77dff,#ff5e7e);background-size:300% 100%;
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:shine 2.5s linear infinite,pop .7s cubic-bezier(.2,1.6,.4,1)}
+@keyframes shine{to{background-position:300% 0}}
+.boom{position:absolute;left:50%;top:50%;width:0;height:0;pointer-events:none}
+.boom i{position:absolute;left:0;top:0;width:10px;height:15px;border-radius:2px;background:var(--c);
+  transform:translate(-50%,-50%);opacity:0;animation:boom 1.6s cubic-bezier(.1,.7,.2,1) var(--d) forwards}
+@keyframes boom{0%{opacity:1;transform:translate(-50%,-50%) scale(.2)}75%{opacity:1}
+  100%{opacity:0;transform:translate(calc(-50% + var(--x)),calc(-50% + var(--y))) rotate(var(--rot)) scale(1)}}
+@media (max-width:420px){.ctl button{flex:1 1 45%}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<noscript><p style="position:relative;margin:40px auto;max-width:520px;padding:20px;border-radius:16px;background:#fff8e8;color:#3b2a1a;text-align:center;line-height:1.9;font-family:Tahoma,sans-serif">این بازی به جاوااسکریپت نیاز دارد. فایل را در یک مرورگر واقعی (Safari یا Chrome) باز کنید؛ پیش‌نمایش فایل در پیام‌رسان یا Files جاوااسکریپت را اجرا نمی‌کند.</p></noscript>
+<script>
+(function () {
+'use strict';
+
+/* ======================================================================
+   0. FIREBASE CONFIG (placeholders). Paste your own values from the
+      Firebase console. While any value starts with PASTE_, online play
+      stays disabled and every offline mode keeps working.
+   ====================================================================== */
+const FIREBASE_CONFIG = {
+  apiKey: 'PASTE_API_KEY',
+  authDomain: 'PASTE_PROJECT.firebaseapp.com',
+  databaseURL: 'PASTE_DATABASE_URL',
+  projectId: 'PASTE_PROJECT_ID'
+};
+
+const $ = (s, r = document) => r.querySelector(s);
+const store = {
+  get(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+};
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+/* ======================================================================
+   1. OFFLINE GAME ENGINE (pure logic, no DOM)
+   Each row is a contiguous window {start,end} over its original papers.
+   Taking k papers from LEFT moves start; from RIGHT moves end. Papers can
+   only leave from the ends, so this window is the complete row state.
+   Two sides removing k from a row are the same as Nim heap reduction,
+   so the game is Nim with heaps 7, 5, 3, 1.
+   ====================================================================== */
+const START_ROWS = [7, 5, 3, 1];
+const Engine = {
+  init(starter) {
+    return { rows: START_ROWS.map(n => ({ start: 0, end: n })), turn: starter, winner: null, last: null };
+  },
+  len: r => r.end - r.start,
+  total: s => s.rows.reduce((a, r) => a + Engine.len(r), 0),
+  xor: s => s.rows.reduce((a, r) => a ^ Engine.len(r), 0),
+  span(s, m) {  // [from, to) of original paper indices a move removes
+    const r = s.rows[m.row];
+    return m.side === 'L' ? [r.start, r.start + m.count] : [r.end - m.count, r.end];
+  },
+  legal(s) {
+    const out = [];
+    if (s.winner !== null) return out;
+    s.rows.forEach((r, i) => {
+      const n = Engine.len(r);
+      for (let k = 1; k <= n; k++) {
+        out.push({ row: i, side: 'L', count: k });
+        if (k < n) out.push({ row: i, side: 'R', count: k }); // taking all from either side is the same move
+      }
+    });
+    return out;
+  },
+  validate(s, player, m) {
+    if (s.winner !== null) return 'بازی تمام شده است.';
+    if (player !== s.turn) return 'الان نوبت این بازیکن نیست.';
+    if (!m || typeof m !== 'object') return 'حرکت نامعتبر است.';
+    if (Array.isArray(m.row) || Array.isArray(m.rows)) return 'در هر نوبت فقط یک ردیف مجاز است.';
+    if (!Number.isInteger(m.row) || m.row < 0 || m.row >= s.rows.length) return 'ردیف نامعتبر است.';
+    if (m.side !== 'L' && m.side !== 'R') return 'کاغذها فقط از ابتدای چپ یا راست برداشته می‌شوند.';
+    if (!Number.isInteger(m.count) || m.count < 1) return 'تعداد کاغذ نامعتبر است.';
+    if (m.count > Engine.len(s.rows[m.row])) return 'بیشتر از کاغذهای باقی‌مانده نمی‌توان برداشت.';
+    return null;
+  },
+  apply(s, player, m) {
+    const err = Engine.validate(s, player, m);
+    if (err) throw new Error(err);
+    const rows = s.rows.map(r => ({ ...r }));
+    if (m.side === 'L') rows[m.row].start += m.count; else rows[m.row].end -= m.count;
+    const next = { rows, turn: 1 - s.turn, winner: null, last: { ...m, player } };
+    if (Engine.total(next) === 0) next.winner = player;  // whoever takes the final paper wins
+    return next;
+  }
+};
+
+/* ======================================================================
+   2. AI ENGINE (obeys the same Engine.validate as humans)
+   Easy: random legal move. Medium: optimal, but 30% random.
+   Hard: optimal Nim. Move so that the XOR of row lengths becomes 0.
+   ====================================================================== */
+const AI = {
+  pick(s, diff) {
+    const moves = Engine.legal(s);
+    if (!moves.length) return null;
+    const random = () => moves[Math.floor(Math.random() * moves.length)];
+    const optimal = () => {
+      const X = Engine.xor(s);
+      if (!X) return null;                       // losing position: no winning move exists
+      for (let i = 0; i < s.rows.length; i++) {
+        const h = Engine.len(s.rows[i]), target = h ^ X;
+        if (target < h) {
+          const k = h - target;
+          return { row: i, side: k === h || Math.random() < .5 ? 'L' : 'R', count: k };
+        }
+      }
+      return null;
+    };
+    if (diff === 'easy') return random();
+    if (diff === 'medium' && Math.random() < .3) return random();
+    // Losing position: pick the move that leaves the human the fewest winning replies.
+    const trapMove = () => {
+      let best = moves[0], bestN = Infinity;
+      for (const m of moves) {
+        const s2 = Engine.apply(s, s.turn, m);
+        if (s2.winner !== null) return m;
+        const replies = Engine.legal(s2).filter(r => Engine.xor(Engine.apply(s2, s2.turn, r)) === 0).length;
+        if (replies < bestN) { bestN = replies; best = m; }
+      }
+      return best;
+    };
+    return optimal() || trapMove();
+  }
+};
+
+/* ======================================================================
+   3. AUDIO (synthesized with Web Audio: no audio files, no licenses,
+      no network needed). Starts only after the first tap or click.
+   ====================================================================== */
+const Sound = {
+  p: Object.assign({ on: true, music: false, sfx: .8, mus: .35 }, store.get('16p_audio', {})),
+  ctx: null, master: null, noise: null, musicTimer: null, step: 0,
+  init() {
+    if (!this.ctx) {
+      const C = window.AudioContext || window.webkitAudioContext;
+      if (!C) return;
+      this.ctx = new C();
+      this.master = this.ctx.createGain();
+      this.master.connect(this.ctx.destination);
+      const len = this.ctx.sampleRate * .6, buf = this.ctx.createBuffer(1, len, this.ctx.sampleRate), d = buf.getChannelData(0);
+      for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 2);
+      this.noise = buf;
+      if (this.p.music) this.setMusic(true);
+    }
+    if (this.ctx.state === 'suspended') this.ctx.resume();
+  },
+  save() { store.set('16p_audio', this.p); },
+  tone(f, t, dur, type = 'sine', v = .2, f2 = 0, ch = 'sfx') {
+    if (!this.ctx || !this.p.on) return;
+    const c = this.ctx, now = c.currentTime + t, o = c.createOscillator(), g = c.createGain();
+    const vol = Math.max(v * (ch === 'mus' ? this.p.mus : this.p.sfx), .0002);
+    o.type = type; o.frequency.setValueAtTime(f, now);
+    if (f2) o.frequency.exponentialRampToValueAtTime(f2, now + dur);
+    g.gain.setValueAtTime(.0001, now);
+    g.gain.exponentialRampToValueAtTime(vol, now + .015);
+    g.gain.exponentialRampToValueAtTime(.0001, now + dur);
+    o.connect(g).connect(this.master);
+    o.start(now); o.stop(now + dur + .05);
+  },
+  burst(t, dur, freq, q, v) {
+    if (!this.ctx || !this.p.on || !this.noise) return;
+    const c = this.ctx, now = c.currentTime + t, src = c.createBufferSource(), f = c.createBiquadFilter(), g = c.createGain();
+    src.buffer = this.noise; f.type = 'bandpass'; f.frequency.value = freq; f.Q.value = q;
+    g.gain.setValueAtTime(v * this.p.sfx, now);
+    g.gain.exponentialRampToValueAtTime(.0001, now + dur);
+    src.connect(f).connect(g).connect(this.master);
+    src.start(now, Math.random() * .2); src.stop(now + dur + .05);
+  },
+  fx: {
+    pick() { Sound.burst(0, .08, 3200, 1.2, .5); },
+    rustle() { for (let i = 0; i < 8; i++) Sound.burst(Math.random() * .45, .02 + Math.random() * .05, 2000 + Math.random() * 5000, 1.2 + Math.random() * 2, .1 + Math.random() * .18); },
+    tear() { Sound.burst(0, .4, 700, 1.5, .25); for (let i = 0; i < 12; i++) Sound.burst(Math.random() * .6, .015 + Math.random() * .04, 1800 + Math.random() * 6000, 1 + Math.random() * 2, .12 + Math.random() * .2); },
+    confirm() { Sound.tone(660, 0, .12, 'triangle', .3); Sound.tone(880, .08, .18, 'triangle', .3); },
+    turn() { Sound.tone(523, 0, .12, 'sine', .25); },
+    win() { Sound.burst(0, .9, 2000, .6, .35); [523, 659, 784, 1047].forEach((f, i) => Sound.tone(f, i * .12, .35, 'triangle', .35)); },
+    lose() { Sound.tone(392, 0, .35, 'triangle', .3, 330); Sound.tone(262, .3, .5, 'triangle', .3, 196); }
+  },
+  setMusic(on) {
+    clearInterval(this.musicTimer); this.musicTimer = null;
+    if (on && this.ctx) {
+      const N = [262, 330, 392, 494, 392, 330, 294, 349];
+      this.musicTimer = setInterval(() => {
+        const s = this.step++;
+        this.tone(N[s % N.length], 0, 1.4, 'sine', .16, 0, 'mus');
+        if (s % 4 === 0) this.tone(N[0] / 2, 0, 2.2, 'triangle', .3, 0, 'mus');
+      }, 700);
+    }
+  }
+};
+
+/* ======================================================================
+   4. ONLINE TRANSPORT (Firebase layer, prepared but NOT active)
+   Plan: anonymous Firebase Auth, Realtime Database for room state,
+   Cloud Functions for createRoom / joinRoom / submitMove / rematch.
+   The server must run the same checks as Engine.validate, must generate
+   room codes itself (client codes are only a preview), and must choose
+   the starting player 50/50. The browser never decides turns or winners.
+   ====================================================================== */
+const ROOM_ALPHABET = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';  // 32 symbols: no O, 0, I, 1
+const Transport = {
+  configured() { return Object.values(FIREBASE_CONFIG).every(v => v && !String(v).startsWith('PASTE_')); },
+  async call(name) {
+    if (!this.configured()) throw new Error('Firebase هنوز پیکربندی نشده است.');
+    throw new Error('لایه آنلاین هنوز به بک‌اند متصل نشده است.');
+  }
+};
+function newRoomCode() {
+  const a = new Uint32Array(4); crypto.getRandomValues(a);
+  return Array.from(a, x => ROOM_ALPHABET[x % ROOM_ALPHABET.length]).join('');
+}
+
+/* ======================================================================
+   5. UI STATE AND RENDERING
+   ====================================================================== */
+let NAMES = store.get('16p_names', null);
+if (!Array.isArray(NAMES) || NAMES.length !== 2) NAMES = ['بازیکن ۱', 'بازیکن ۲'];
+const S = { screen: 'menu', vsAI: false, diff: 'medium', state: null, sel: null, busy: false, gid: 0, aboutImg: null };
+const pname = p => S.vsAI ? (p === 0 ? NAMES[0] : 'هوش مصنوعی') : NAMES[p];
+const canAct = () => S.screen === 'game' && !S.busy && !!S.state && S.state.winner === null && (S.online ? S.state.turn === Online.seat : (!S.vsAI || S.state.turn === 0));
+const ragged = () => {
+  const j = () => (Math.random() * 2.2).toFixed(2), k = () => (97.8 + Math.random() * 2.2).toFixed(2);
+  return `polygon(${j()}% ${j()}%,${k()}% ${j()}%,100% ${k()}%,${j()}% 100%)`;
+};
+function flash(t) { const h = $('#hint'); if (h) h.textContent = t; }
+function overlay(html) { closeOverlay(); const d = document.createElement('div'); d.className = 'overlay'; d.id = 'ov'; d.innerHTML = html; document.body.appendChild(d); }
+function closeOverlay() { const o = $('#ov'); if (o) o.remove(); }
+function screen(name, html) { S.screen = name; closeOverlay(); $('#app').innerHTML = html; }
+
+// Draws one row from its logical window. sel = {row, side, count}.
+function paperRow(i, row, sel) {
+  const wrap = document.createElement('div');
+  const on = !!sel && sel.row === i;
+  wrap.className = 'row' + (on ? ' sel' : '');
+  wrap.dataset.row = i;
+  if (row.end === row.start) { wrap.innerHTML = '<span class="empty">خالی</span>'; return wrap; }
+  for (let idx = row.start; idx < row.end; idx++) {
+    const edge = on && sel.side ? (sel.side === 'L' ? idx - row.start + 1 : row.end - idx) : 0;
+    const p = document.createElement('div');
+    p.className = 'paper' + (edge && sel.count && edge <= sel.count ? ' hl' : '');
+    p.dataset.row = i; p.dataset.idx = idx;
+    p.style.setProperty('--r', (Math.random() * 4 - 2).toFixed(2) + 'deg');
+    p.innerHTML = `<div class="sheet" style="clip-path:${ragged()}">${edge ? `<span class="n">${edge}</span>` : ''}</div>`;
+    wrap.appendChild(p);
+  }
+  return wrap;
+}
+
+/* ---------- Screens ---------- */
+function showMenu() {
+  S.state = null; S.sel = null; S.busy = false; S.gid++;
+  S.online = false;
+  if (Online.chan && Online.client) { Online.client.removeChannel(Online.chan); Online.chan = null; }
+  screen('menu', `
+    <h1>۱۶ کاغذ</h1>
+    <p class="sub">بازی استراتژیک نوبتی برای دو نفر</p>
+    <div class="card menu">
+      <button data-act="local">بازی دونفره روی یک دستگاه</button>
+      <button data-act="aimenu">بازی با هوش مصنوعی</button>
+      <button data-act="online">بازی آنلاین</button>
+      <button data-act="tutorial">آموزش بازی</button>
+      <button data-act="settings">تنظیمات</button>
+      <button data-act="about">درباره سازنده</button>
+    </div>`);
+}
+
+function showAI() {
+  screen('ai', `<div class="card"><h2>سطح هوش مصنوعی</h2>
+    <div class="menu">
+      <button data-act="ai" data-d="easy">آسان</button>
+      <button data-act="ai" data-d="medium">متوسط</button>
+      <button data-act="ai" data-d="hard">سخت</button>
+    </div>
+    <div class="ctl"><button data-act="menu">بازگشت</button></div></div>`);
+}
+
+function showGame() {
+  screen('game', `
+    <div class="bar"><div class="pl" id="p0"></div><div class="pl" id="p1"></div></div>
+    <div class="status" id="status"></div>
+    <div class="table" id="table"></div>
+    <div class="ctl">
+      <button id="bC" class="primary" data-act="confirm">تأیید برداشت</button>
+      <button data-act="cancel">لغو انتخاب</button>
+    </div>
+    <div class="hint" id="hint"></div>
+    <div class="ctl"><button data-act="menu">منوی اصلی</button></div>`);
+  renderGame();
+}
+
+function renderGame() {
+  const s = S.state, t = $('#table');
+  if (!s || !t) return;
+  t.innerHTML = '';
+  s.rows.forEach((r, i) => t.appendChild(paperRow(i, r, S.sel)));
+  [0, 1].forEach(p => { const el = $('#p' + p); el.textContent = pname(p); el.classList.toggle('on', s.winner === null && s.turn === p); });
+  $('#status').textContent = s.winner === null ? `نوبت: ${pname(s.turn)}؛ کاغذهای باقی‌مانده: ${Engine.total(s)}` : '';
+  const can = canAct();
+  $('#bC').disabled = !(can && S.sel && S.sel.side && S.sel.count > 0);
+}
+
+function showTutorial() {
+  demo = { row: { start: 0, end: 7 }, sel: { row: 0, side: null, count: 0 } };
+  screen('tutorial', `<div class="card">
+    <h2>آموزش بازی</h2>
+    <p>هدف: کسی که آخرین کاغذ را بردارد برنده است.</p>
+    <p>در هر نوبت فقط <b>یک ردیف</b> را انتخاب کنید و تعدادی کاغذ را از <b>ابتدای چپ</b> یا <b>ابتدای راست</b> آن بردارید. نمی‌توانید از وسط ردیف کاغذ بردارید. ردیف‌ها در شروع بازی ۷، ۵، ۳ و ۱ کاغذ دارند.</p>
+    <h3>مثال تعاملی</h3>
+    <p id="tutText">ردیف ۷ کاغذی را ببینید. برای برداشتن شش کاغذ از چپ، روی کاغذ ششم بزنید؛ ابتدا دو کاغذ از راست انتخاب می‌شود. دوباره روی همان کاغذ بزنید تا طرف برعکس شود. شش کاغذ از چپ برداشته می‌شود و فقط کاغذ هفتم می‌ماند.</p>
+    <div id="demo" class="table"></div>
+    <div class="ctl">
+      <button class="primary" data-act="dconfirm">تأیید برداشت</button>
+      <button data-act="dreset">شروع دوباره</button>
+    </div>
+    <div class="ctl"><button data-act="menu">بازگشت</button></div></div>`);
+  drawDemo();
+}
+let demo = null;
+function drawDemo() { const d = $('#demo'); if (d) { d.innerHTML = ''; d.appendChild(paperRow(0, demo.row, demo.sel)); } }
+function demoText(t) { const el = $('#tutText'); if (el) el.textContent = t; }
+function demoSide(side) {
+  demo.sel = { row: 0, side, count: 0 };
+  demoText(`حالا روی کاغذی کلیک کنید تا از سمت ${side === 'L' ? 'چپ' : 'راست'} انتخاب شود.`);
+  drawDemo();
+}
+function demoPick(idx) {
+  demo.sel = { row: 0, ...edgePick(demo.row, idx, demo.sel.count ? demo.sel : null) };
+  demoText(`${demo.sel.count} کاغذ از سمت ${demo.sel.side === 'L' ? 'چپ' : 'راست'} انتخاب شد. برای تغییر طرف، دوباره روی همین کاغذ بزنید.`);
+  drawDemo();
+}
+function demoConfirm() {
+  const r = demo.row, c = demo.sel.count;
+  if (!c) return demoText('ابتدا تعداد کاغذ را با کلیک روی کاغذ مشخص کنید.');
+  if (demo.sel.side === 'L') r.start += c; else r.end -= c;
+  demo.sel = { row: 0, side: null, count: 0 };
+  demoText(`${c} کاغذ برداشته شد و ${r.end - r.start} کاغذ باقی ماند.`);
+  drawDemo();
+}
+
+function showSettings() {
+  screen('settings', `<div class="card"><h2>تنظیمات</h2>
+    <label class="set">صدا روشن باشد <input type="checkbox" data-pref="on" ${Sound.p.on ? 'checked' : ''}></label>
+    <label class="set">موسیقی پس‌زمینه <input type="checkbox" data-pref="music" ${Sound.p.music ? 'checked' : ''}></label>
+    <label class="set">افکت‌ها <input type="range" min="0" max="1" step="0.05" value="${Sound.p.sfx}" data-pref="sfx"></label>
+    <label class="set">موسیقی <input type="range" min="0" max="1" step="0.05" value="${Sound.p.mus}" data-pref="mus"></label>
+    <p class="note">صداها در مرورگر ساخته می‌شوند و به فایل صوتی خارجی یا اینترنت نیاز ندارند. صدا بعد از اولین لمس یا کلیک شما شروع می‌شود.</p>
+    <h3>نام بازیکنان</h3>
+    <label>بازیکن اول<input id="n0" maxlength="20" value="${esc(NAMES[0])}"></label>
+    <label>بازیکن دوم<input id="n1" maxlength="20" value="${esc(NAMES[1])}"></label>
+    <div class="ctl"><button class="primary" data-act="savenames">ذخیره نام‌ها</button></div>
+    <div class="hint" id="hint"></div>
+    <div class="ctl"><button data-act="tests">اجرای تست‌های داخلی</button><button data-act="menu">بازگشت</button></div></div>`);
+}
+
+function showOnline() {
+  const cfg = Transport.configured(), dis = cfg ? '' : 'disabled';
+  const room = new URLSearchParams(location.search).get('room') || '';
+  screen('online', `<div class="card"><h2>بازی آنلاین</h2>
+    <p>${cfg ? 'پیکربندی Firebase شناسایی شد، اما اتصال هنوز فعال نشده است.' : 'بازی آنلاین هنوز فعال نیست. برای فعال‌سازی، مقادیر Firebase را وارد کنید و سرور را مستقر کنید. بازی‌های آفلاین بدون این بخش کار می‌کنند.'}</p>
+    <input id="code" maxlength="4" placeholder="کد اتاق، مثلاً A7K2" autocomplete="off" value="${esc(room)}">
+    <div class="ctl">
+      <button data-act="createroom" ${dis}>ساخت اتاق خصوصی</button>
+      <button data-act="joinroom" ${dis}>پیوستن به اتاق</button>
+    </div>
+    <div class="hint" id="hint"></div>
+    <div class="ctl"><button data-act="menu">بازگشت</button></div></div>`);
+}
+
+async function onlineCall(kind) {
+  try {
+    if (kind === 'joinRoom') {
+      const code = ($('#code').value || '').toUpperCase().replace(/[^A-HJ-NP-Z2-9]/g, '').slice(0, 4);
+      if (code.length !== 4) throw new Error('کد اتاق باید ۴ کاراکتر باشد.');
+      await Transport.call('joinRoom', { code });
+    } else {
+      await Transport.call('createRoom', { code: newRoomCode() });
+    }
+  } catch (e) { flash(e.message); }
+}
+
+function showAbout() {
+  const a = store.get('16p_about', { name: '', bio: '', img: '' });
+  S.aboutImg = null;
+  screen('about', `<div class="card"><h2>درباره سازنده</h2>
+    <div class="avatar" id="av">${a.img ? `<img src="${a.img}" alt="">` : 'تصویر'}</div>
+    <input type="file" accept="image/*" id="imgIn">
+    <label>نام<input id="aName" value="${esc(a.name)}" placeholder="نام سازنده را وارد کنید"></label>
+    <label>توضیحات<textarea id="aBio" rows="4" placeholder="توضیحات را بنویسید">${esc(a.bio)}</textarea></label>
+    <div class="hint" id="hint"></div>
+    <div class="ctl"><button class="primary" data-act="saveabout">ذخیره</button><button data-act="menu">بازگشت</button></div></div>`);
+}
+function saveAbout() {
+  const old = store.get('16p_about', {});
+  store.set('16p_about', { name: $('#aName').value.trim(), bio: $('#aBio').value.trim(), img: S.aboutImg || old.img || '' });
+  flash('اطلاعات ذخیره شد.');
+}
+
+/* ---------- Online play (Supabase) ---------- */
+const SB_URL = 'https://onbylstutweenlpuxjww.supabase.co';
+const SB_KEY = 'sb_publishable_IBzTfWBEW7SkqzNRRZy_xg_xadlAd7g';   // publishable key: safe in the browser
+const Online = { client: null, uid: null, code: null, seat: 0, chan: null };
+const OERR = {
+  NOT_YOUR_TURN: 'نوبت شما نیست.', BAD_COUNT: 'تعداد کاغذ نامعتبر است.', ONE_ROW_ONLY: 'فقط یک ردیف مجاز است.',
+  GAME_OVER: 'بازی تمام شده است.', ROOM_NOT_FOUND: 'اتاق پیدا نشد یا منقضی شده است.', ROOM_FULL: 'این اتاق پر است.',
+  RATE_LIMIT: 'تعداد اتاق‌های ساخته‌شده زیاد است؛ کمی صبر کنید.', NOT_IN_ROOM: 'شما عضو این اتاق نیستید.',
+  NOT_FINISHED: 'بازی هنوز تمام نشده است.', NOT_AUTH: 'اتصال آنلاین برقرار نشد.'
+};
+const oerr = msg => { const k = Object.keys(OERR).find(x => String(msg).includes(x)); return k ? OERR[k] : 'خطا: ' + msg; };
+
+function loadSupabase() {
+  return new Promise((ok, bad) => {
+    if (window.supabase) return ok();
+    const s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js';
+    s.onload = ok;
+    s.onerror = () => bad(new Error('به سرور وصل نشد؛ اینترنت را بررسی کنید.'));
+    document.head.appendChild(s);
+  });
+}
+async function onlineClient() {
+  if (Online.client) return Online.client;
+  await loadSupabase();
+  const sb = window.supabase.createClient(SB_URL, SB_KEY);
+  const cur = await sb.auth.getSession();   // reuse the saved anonymous session, so reconnecting keeps your seat
+  if (cur.data && cur.data.session) {
+    Online.uid = cur.data.session.user.id;
+  } else {
+    const { data, error } = await sb.auth.signInAnonymously();
+    if (error) throw new Error('ورود ناشناس انجام نشد.');
+    Online.uid = data.user.id;
+  }
+  Online.client = sb;
+  return sb;
+}
+function subscribeRoom(code) {
+  const sb = Online.client;
+  if (Online.chan) sb.removeChannel(Online.chan);
+  Online.chan = sb.channel('room-' + code)
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'rooms', filter: 'code=eq.' + code }, p => applyRoom(p.new))
+    .subscribe();
+}
+async function refreshRoom() {
+  const { data, error } = await Online.client.from('rooms').select('*').eq('code', Online.code).single();
+  if (error) throw new Error(oerr(error.message));
+  applyRoom(data);
+}
+function applyRoom(r) {
+  if (!r || r.code !== Online.code) return;
+  Online.seat = r.p0 === Online.uid ? 0 : 1;
+  if (Array.isArray(r.names)) NAMES = r.names;
+  if (r.status === 'waiting' || !r.state) { if (S.screen !== 'waiting') showWaitingRoom(r.code); return; }
+  const prev = S.state ? S.state.winner : undefined;
+  S.state = r.state; S.sel = null;
+  if (S.screen !== 'game') showGame(); else renderGame();
+  if (S.state.winner === null) closeOverlay();
+  else if (prev === null || prev === undefined) showVictory();
+}
+async function enterRoom(code) {
+  Online.code = code; S.online = true; S.vsAI = false;
+  subscribeRoom(code);
+  await refreshRoom();
+}
+function myName(seat) {
+  const typed = $('#myname') ? $('#myname').value.trim() : '';
+  const n = typed || NAMES[seat] || (seat === 0 ? 'بازیکن ۱' : 'بازیکن ۲');
+  NAMES[seat] = n;
+  store.set('16p_online_named', true);
+  store.set('16p_names', NAMES);
+  HIST = [n, ...HIST.filter(x => x !== n)].slice(0, 12);
+  store.set('16p_hist', HIST);
+  return n;
+}
+async function createOnlineRoom() {
+  const sb = await onlineClient();
+  const { data, error } = await sb.rpc('create_room', { p_name: myName(0) });
+  if (error) throw new Error(oerr(error.message));
+  await enterRoom(data);
+}
+async function joinOnlineRoom(code) {
+  const sb = await onlineClient();
+  const { error } = await sb.rpc('join_room', { p_code: code, p_name: myName(1) });
+  if (error) throw new Error(oerr(error.message));
+  await enterRoom(code);
+}
+async function submitOnline(m) {
+  S.busy = true; renderGame();
+  const { error } = await Online.client.rpc('submit_move', { p_code: Online.code, p_move: m });
+  S.busy = false; S.sel = null;
+  if (error) { flash(oerr(error.message)); return renderGame(); }
+  await refreshRoom();
+}
+async function rematchOnline() {
+  const { error } = await Online.client.rpc('rematch', { p_code: Online.code });
+  if (error && !String(error.message).includes('NOT_FINISHED')) flash(oerr(error.message));
+  await refreshRoom();
+}
+async function withOnline(fn) {
+  try { flash('در حال اتصال...'); await fn(); } catch (e) { flash(e.message); }
+}
+function showLobby() {
+  const room = new URLSearchParams(location.search).get('room') || '';
+  screen('online', `<div class="card"><h2>بازی آنلاین</h2>
+    <p>اتاق بسازید و کد را برای دوستتان بفرستید، یا کد اتاق دوستتان را وارد کنید.</p>
+    <input id="code" maxlength="4" placeholder="کد اتاق، مثلاً A7K2" autocomplete="off" value="${esc(room)}">
+    ${store.get('16p_online_named', false)
+      ? `<p>نام شما: <b>${esc(NAMES[0])}</b></p>
+         <div class="ctl"><button data-act="rename">تغییر نام</button></div>
+         <div id="renamebox" style="display:none"><label>نام جدید<input id="myname" maxlength="20" autocomplete="off" value="${esc(NAMES[0])}"></label>
+         <div class="ctl"><button class="primary" data-act="savename">ذخیره نام</button></div></div>`
+      : `<label>نام شما<input id="myname" maxlength="20" autocomplete="off" value="${esc(NAMES[0])}"></label>`}
+    ${HIST.length ? `<p class="note">نام‌های قبلی (روی یکی بزنید تا در فیلد نام قرار بگیرد):</p><div class="ctl">${HIST.map(n => `<button data-act="fill" data-n="${esc(n)}">${esc(n)}</button>`).join('')}</div>` : ''}
+    <div class="ctl"><button class="primary" data-act="createroom">ساخت اتاق</button><button data-act="joinroom">پیوستن به اتاق</button></div>
+    <div class="hint" id="hint"></div>
+    <div class="ctl"><button data-act="menu">بازگشت</button></div></div>`);
+}
+function showWaitingRoom(code) {
+  screen('waiting', `<div class="card"><h2>منتظر بازیکن دوم</h2>
+    <p>این کد را برای دوستتان بفرستید:</p>
+    <div class="big" style="font-size:54px">${esc(code)}</div>
+    <p class="note">یا لینک: ?room=${esc(code)}</p>
+    <div class="ctl"><button data-act="menu">انصراف</button></div></div>`);
+}
+
+/* ---------- Name entry with saved suggestions ---------- */
+let HIST = store.get('16p_hist', []);
+if (!Array.isArray(HIST)) HIST = [];
+function showSetup() {
+  S.online = false;
+  const two = !S.vsAI;
+  const chips = HIST.map(n => `<button data-act="fill" data-n="${esc(n)}">${esc(n)}</button>`).join('');
+  screen('setup', `<div class="card"><h2>${two ? 'نام بازیکنان' : 'نام شما'}</h2>
+    <label>${two ? 'بازیکن اول' : 'نام شما'}<input id="n0" maxlength="20" autocomplete="off" value="${esc(NAMES[0])}"></label>
+    ${two ? `<label>بازیکن دوم<input id="n1" maxlength="20" autocomplete="off" value="${esc(NAMES[1])}"></label>` : ''}
+    ${HIST.length ? `<p class="note">نام‌های قبلی را انتخاب کنید (در فیلد فعال قرار می‌گیرد):</p><div class="ctl">${chips}</div>` : ''}
+    <div class="ctl"><button class="primary" data-act="startgame">شروع بازی</button><button data-act="menu">بازگشت</button></div></div>`);
+}
+
+/* ---------- Game flow ---------- */
+function newGame() {
+  S.gid++;
+  const starter = Math.random() < .5 ? 0 : 1;   // fresh 50/50 starter every round
+  S.state = Engine.init(starter); S.sel = null; S.busy = false;
+  showGame();
+  flash(`${pname(starter)} این دور را شروع می‌کند.`);
+  if (S.vsAI && starter === 1) setTimeout(aiTurn, 900);
+}
+
+function selectRow(i) {
+  if (!canAct() || !Engine.len(S.state.rows[i]) || (S.sel && S.sel.row === i)) return;
+  S.sel = { row: i, side: null, count: 0 };
+  flash('حالا روی کاغذ مورد نظر بزنید.');
+  renderGame();
+}
+function pickSide(side) {
+  if (!canAct()) return;
+  if (!S.sel) return flash('ابتدا یک ردیف را انتخاب کنید.');
+  S.sel.side = side; S.sel.count = 0;
+  flash(`حالا روی کاغذی کلیک کنید تا از سمت ${side === 'L' ? 'چپ' : 'راست'} انتخاب شود.`);
+  renderGame();
+}
+// Side is taken from the edge nearest the tapped paper. Tapping the same paper again flips the side.
+function edgePick(r, idx, cur) {
+  const fromL = idx - r.start + 1, fromR = r.end - idx;
+  let side = 'R';
+  if (cur && cur.side === side && cur.count === (side === 'L' ? fromL : fromR)) side = side === 'L' ? 'R' : 'L';
+  return { side, count: side === 'L' ? fromL : fromR };
+}
+function clickPaper(i, idx) {
+  if (!canAct()) return;
+  Sound.fx.pick();
+  S.sel = { row: i, ...edgePick(S.state.rows[i], idx, S.sel && S.sel.row === i ? S.sel : null) };
+  flash(`${S.sel.count} کاغذ از سمت ${S.sel.side === 'L' ? 'چپ' : 'راست'} انتخاب شد. برای تغییر طرف، دوباره روی همین کاغذ بزنید.`);
+  renderGame();
+}
+function confirmMove() {
+  if (!canAct() || !S.sel || !S.sel.side || !(S.sel.count > 0)) return;
+  const m = { row: S.sel.row, side: S.sel.side, count: S.sel.count };
+  if (S.online) return submitOnline(m);
+  playMove(m);
+}
+
+function playMove(m) {
+  const p = S.state.turn, err = Engine.validate(S.state, p, m);
+  if (err) return flash(err);
+  const [from, to] = Engine.span(S.state, m), g = S.gid;
+  S.busy = true;
+  document.querySelectorAll(`.row[data-row="${m.row}"] .paper`).forEach(el => {
+    const x = +el.dataset.idx;
+    if (x >= from && x < to) el.classList.add('gone');
+  });
+  (m.count > 2 ? Sound.fx.tear : Sound.fx.rustle)();
+  setTimeout(() => {
+    if (g !== S.gid) return;
+    S.state = Engine.apply(S.state, p, m);
+    S.sel = null; S.busy = false;
+    Sound.fx.confirm();
+    afterMove();
+  }, 380);
+}
+
+function afterMove() {
+  renderGame();
+  if (S.state.winner !== null) return showVictory();
+  Sound.fx.turn();
+  if (S.vsAI && S.state.turn === 1) setTimeout(aiTurn, 650);
+}
+
+function aiTurn() {
+  if (S.screen !== 'game' || !S.state || S.state.winner !== null || S.state.turn !== 1) return;
+  const m = AI.pick(S.state, S.diff), g = S.gid;
+  if (!m) return;
+  S.busy = true; S.sel = { row: m.row, side: m.side, count: m.count }; renderGame();  // show AI's choice first
+  setTimeout(() => { if (g !== S.gid) return; S.busy = false; playMove(m); }, 700);
+}
+
+function showVictory() {
+  const w = S.state.winner;
+  const won = S.online ? w === Online.seat : (S.vsAI ? w === 0 : true);
+  if (won) Sound.fx.win(); else Sound.fx.lose();
+  const burst = () => {
+    const C = ['#ff5e7e', '#ffd23f', '#41e0a0', '#4fa3ff', '#c77dff', '#ff9f43'];
+    let h = '<div class="boom">';
+    for (let k = 0; k < 70; k++) {
+      const a = Math.random() * Math.PI * 2, d = 140 + Math.random() * 280;
+      h += `<i style="--c:${C[k % C.length]};--x:${(Math.cos(a) * d).toFixed(0)}px;--y:${(Math.sin(a) * d).toFixed(0)}px;--rot:${(Math.random() * 720 - 360).toFixed(0)}deg;--d:${(Math.random() * .15).toFixed(2)}s"></i>`;
+    }
+    return h + '</div>';
+  };
+  [0, 450, 950, 1600].forEach(t => setTimeout(() => { const o = $('#ov'); if (o) o.insertAdjacentHTML('afterbegin', burst()); }, t));
+  const title = won ? `${pname(w)} برنده شد!` : (S.online ? `${pname(w)} برنده شد!` : 'هوش مصنوعی برد!');
+  overlay(`<div class="card"><div class="big">${esc(title)}</div>
+    <p>کسی که آخرین کاغذ را برداشت، برنده این دور است.</p>
+    <div class="ctl"><button class="primary" data-act="again">بازی تازه</button><button data-act="menu">منوی اصلی</button></div></div>`);
+}
+
+/* ======================================================================
+   6. BUILT-IN TESTS (run from Settings → اجرای تست‌های داخلی)
+   ====================================================================== */
+function runTests() {
+  const T = [];
+  const t = (n, f) => T.push([n, f]);
+  const eq = (a, b, m) => { if (a !== b) throw new Error(`${m}: انتظار ${b}، دریافت ${a}`); };
+  const fails = (f, m) => { let threw = false; try { f(); } catch (e) { threw = true; } if (!threw) throw new Error(m + ': باید رد شود'); };
+  const init = () => Engine.init(0);
+  const go = (s, p, m) => Engine.apply(s, p, m);
+  const shown = (s, i) => [...paperRow(i, s.rows[i], null).querySelectorAll('.paper')].map(p => +p.dataset.idx).join(',');
+
+  t('۷ کاغذی: برداشتن ۱ از چپ', () => { const s = go(init(), 0, { row: 0, side: 'L', count: 1 }); eq(Engine.len(s.rows[0]), 6, 'تعداد'); eq(shown(s, 0), '1,2,3,4,5,6', 'نمایش'); });
+  t('۷ کاغذی: برداشتن ۲ از چپ', () => { const s = go(init(), 0, { row: 0, side: 'L', count: 2 }); eq(Engine.len(s.rows[0]), 5, 'تعداد'); eq(shown(s, 0), '2,3,4,5,6', 'نمایش'); });
+  t('۷ کاغذی: برداشتن ۶ از چپ (کاغذ هفتم می‌ماند)', () => { const s = go(init(), 0, { row: 0, side: 'L', count: 6 }); eq(Engine.len(s.rows[0]), 1, 'تعداد'); eq(shown(s, 0), '6', 'نمایش'); });
+  t('۷ کاغذی: برداشتن ۱ از راست', () => { const s = go(init(), 0, { row: 0, side: 'R', count: 1 }); eq(Engine.len(s.rows[0]), 6, 'تعداد'); eq(shown(s, 0), '0,1,2,3,4,5', 'نمایش'); });
+  t('۷ کاغذی: برداشتن ۲ از راست', () => { const s = go(init(), 0, { row: 0, side: 'R', count: 2 }); eq(Engine.len(s.rows[0]), 5, 'تعداد'); eq(shown(s, 0), '0,1,2,3,4', 'نمایش'); });
+  t('۷ کاغذی: برداشتن ۶ از راست (کاغذ اول می‌ماند)', () => { const s = go(init(), 0, { row: 0, side: 'R', count: 6 }); eq(Engine.len(s.rows[0]), 1, 'تعداد'); eq(shown(s, 0), '0', 'نمایش'); });
+  t('۷ کاغذی: برداشتن همه از چپ', () => { const s = go(init(), 0, { row: 0, side: 'L', count: 7 }); eq(Engine.len(s.rows[0]), 0, 'تعداد'); eq(shown(s, 0), '', 'نمایش'); });
+  t('۷ کاغذی: برداشتن همه از راست', () => { const s = go(init(), 0, { row: 0, side: 'R', count: 7 }); eq(Engine.len(s.rows[0]), 0, 'تعداد'); eq(shown(s, 0), '', 'نمایش'); });
+  t('ردیف دوم (۵ کاغذ): برداشتن همه', () => { const s = go(init(), 0, { row: 1, side: 'L', count: 5 }); eq(Engine.len(s.rows[1]), 0, 'تعداد'); eq(shown(s, 1), '', 'نمایش'); });
+  t('ردیف چهارم (۱ کاغذ): برداشتن تنها کاغذ', () => { const s = go(init(), 0, { row: 3, side: 'R', count: 1 }); eq(Engine.len(s.rows[3]), 0, 'تعداد'); });
+  t('جلوگیری از برداشتن از وسط', () => fails(() => go(init(), 0, { row: 0, side: 'M', count: 2 }), 'وسط'));
+  t('جلوگیری از انتخاب بیشتر از باقی‌مانده', () => { const s = go(init(), 0, { row: 0, side: 'L', count: 6 }); fails(() => go(s, 1, { row: 0, side: 'R', count: 2 }), 'بیشتر'); });
+  t('جلوگیری از انتخاب چند ردیف در یک نوبت', () => fails(() => go(init(), 0, { row: [0, 1], side: 'L', count: 1 }), 'چند ردیف'));
+  t('جلوگیری از دو حرکت پشت‌سرهم یک بازیکن', () => { const s = go(init(), 0, { row: 0, side: 'L', count: 1 }); fails(() => go(s, 0, { row: 1, side: 'L', count: 1 }), 'دو حرکت'); });
+  t('مجموع کاغذها در شروع ۱۶ است', () => eq(Engine.total(init()), 16, 'مجموع'));
+  t('همه حرکت‌های قانونی معتبرند', () => eq(Engine.legal(init()).every(m => !Engine.validate(init(), 0, m)), true, 'قانونی'));
+  t('هوش مصنوعی سخت در موقعیت برد، XOR را صفر می‌کند', () => {
+    for (let k = 0; k < 50; k++) {
+      const s = { rows: [{ start: 0, end: 7 }, { start: 0, end: 5 }, { start: 0, end: 3 }, { start: 0, end: 0 }], turn: 1, winner: null, last: null };
+      eq(Engine.xor(go(s, 1, AI.pick(s, 'hard'))), 0, 'XOR');
+    }
+  });
+  t('هوش مصنوعی سخت به‌عنوان نفر دوم همیشه می‌برد (۱۰۰ بازی)', () => {
+    let wins = 0;
+    for (let g = 0; g < 100; g++) {
+      let s = init(), guard = 0;
+      while (s.winner === null && guard++ < 100) s = go(s, s.turn, AI.pick(s, s.turn === 0 ? 'easy' : 'hard'));
+      if (s.winner === 1) wins++;
+    }
+    eq(wins, 100, 'برد');
+  });
+
+  let pass = 0;
+  const lines = T.map(([n, f]) => {
+    try { f(); pass++; return `✔ ${n}`; } catch (e) { return `✘ ${n} — ${e.message}`; }
+  });
+  return { pass, total: T.length, lines };
+}
+function showTests() {
+  const r = runTests();
+  overlay(`<div class="card"><h2>نتیجه: ${r.pass} از ${r.total} تست موفق</h2>
+    <pre>${esc(r.lines.join('\n'))}</pre>
+    <div class="ctl"><button class="primary" data-act="closeov">بستن</button></div></div>`);
+}
+
+/* ======================================================================
+   7. EVENTS AND BOOT
+   ====================================================================== */
+function act(a, el) {
+  switch (a) {
+    case 'menu': return showMenu();
+    case 'local': S.vsAI = false; return showSetup();
+    case 'aimenu': return showAI();
+    case 'ai': S.vsAI = true; S.diff = el.dataset.d; return showSetup();
+    case 'again': return S.online ? rematchOnline() : newGame();
+    case 'online': return showLobby();
+    case 'createroom': return withOnline(createOnlineRoom);
+    case 'joinroom': return withOnline(() => {
+      const c = ($('#code').value || '').toUpperCase().replace(/[^A-HJ-NP-Z2-9]/g, '').slice(0, 4);
+      if (c.length !== 4) throw new Error('کد اتاق باید ۴ کاراکتر باشد.');
+      return joinOnlineRoom(c);
+    });
+    case 'tutorial': return showTutorial();
+    case 'dside': return demoSide(el.dataset.side);
+    case 'dconfirm': return demoConfirm();
+    case 'dreset': return showTutorial();
+    case 'settings': return showSettings();
+    case 'startgame': {
+      const a = $('#n0').value.trim() || 'بازیکن ۱';
+      const b = $('#n1') ? ($('#n1').value.trim() || 'بازیکن ۲') : NAMES[1];
+      NAMES = [a, b];
+      store.set('16p_names', NAMES);
+      const add = n => { HIST = [n, ...HIST.filter(x => x !== n)].slice(0, 12); };
+      add(a);
+      if ($('#n1')) add(b);
+      store.set('16p_hist', HIST);
+      return newGame();
+    }
+    case 'fill': {
+      const target = $('#myname') || $(lastIn);
+      if (target) target.value = el.dataset.n;
+      return;
+    }
+    case 'rename': { const b = $('#renamebox'); if (b) b.style.display = ''; return; }
+    case 'savename': myName(0); return showLobby();
+    case 'tests': return showTests();
+    case 'savenames': {
+      const a = $('#n0').value.trim(), b = $('#n1').value.trim();
+      NAMES = [a || 'بازیکن ۱', b || 'بازیکن ۲'];
+      store.set('16p_names', NAMES);
+      return flash('نام‌ها ذخیره شد.');
+    }
+    case 'closeov': return closeOverlay();
+    case 'about': return showAbout();
+    case 'saveabout': return saveAbout();
+    case 'side': return pickSide(el.dataset.side);
+    case 'confirm': return confirmMove();
+    case 'cancel': if (canAct()) { S.sel = null; renderGame(); } return;
+  }
+}
+
+document.addEventListener('click', e => {
+  const pap = e.target.closest('.paper');
+  if (pap) return pap.closest('#demo') ? demoPick(+pap.dataset.idx) : clickPaper(+pap.dataset.row, +pap.dataset.idx);
+  const rowEl = e.target.closest('.row');
+  if (rowEl && S.screen === 'game') return selectRow(+rowEl.dataset.row);
+  const b = e.target.closest('[data-act]');
+  if (b && !b.disabled) act(b.dataset.act, b);
+});
+
+document.addEventListener('input', e => {   // settings sliders and toggles
+  const k = e.target.dataset.pref;
+  if (!k) return;
+  Sound.init();
+  Sound.p[k] = e.target.type === 'checkbox' ? e.target.checked : +e.target.value;
+  Sound.save();
+  if (k === 'music') Sound.setMusic(Sound.p.music);
+});
+
+document.addEventListener('change', e => {  // profile image for the about page
+  if (e.target.id !== 'imgIn') return;
+  const f = e.target.files[0];
+  if (!f) return;
+  if (f.size > 400 * 1024) return flash('حجم تصویر باید کمتر از ۴۰۰ کیلوبایت باشد.');
+  const r = new FileReader();
+  r.onload = () => { S.aboutImg = r.result; $('#av').innerHTML = `<img src="${r.result}" alt="">`; };
+  r.readAsDataURL(f);
+});
+
+let lastIn = '#n0';
+document.addEventListener('focusin', e => { if (e.target.id === 'n0' || e.target.id === 'n1') lastIn = '#' + e.target.id; });
+
+// Audio starts only after the player's first tap or click (browser autoplay rules).
+document.addEventListener('pointerdown', () => Sound.init(), { passive: true });
+
+showMenu();
+})();
+</script>
+</body>
+</html>
